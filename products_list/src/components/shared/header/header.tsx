@@ -1,35 +1,41 @@
 import Link from 'next/link';
 
+import { Logo } from '../logo';
 import { ToggleTheme } from '../toggle-theme';
 
 export const Header = () => {
   return (
-    <header className='p-5'>
-      <div className='relative mx-auto flex max-w-7xl items-center justify-between rounded-xl border border-primary/30 p-5'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='176'
-          height='40'
-          fill='none'
-          viewBox='0 0 176 40'
-          className='fill-primary stroke-primary'
-        >
-          <path
-            fillRule='evenodd'
-            d='M15 28a5 5 0 0 1-5-5V0H0v23c0 8.284 6.716 15 15 15h11V28H15ZM45 10a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-19 9C26 8.507 34.507 0 45 0s19 8.507 19 19-8.507 19-19 19-19-8.507-19-19ZM153 10a9 9 0 0 0-9 9 9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9Zm-19 9c0-10.493 8.507-19 19-19s19 8.507 19 19-8.507 19-19 19-19-8.507-19-19ZM85 0C74.507 0 66 8.507 66 19s8.507 19 19 19h28c1.969 0 3.868-.3 5.654-.856L124 40l5.768-10.804A19.007 19.007 0 0 0 132 20.261V19c0-10.493-8.507-19-19-19H85Zm37 19a9 9 0 0 0-9-9H85a9 9 0 1 0 0 18h28a9 9 0 0 0 9-8.93V19Z'
-            clipRule='evenodd'
-          ></path>
-          <path d='M176 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z'></path>
-        </svg>
+    <>
+      <header className='fixed left-0 right-0 z-20 p-5'>
+        <div className='relative mx-auto flex max-w-7xl items-center justify-between rounded-xl border border-primary/30 bg-muted/50 p-5 backdrop-blur-md'>
+          <Logo />
 
-        <nav className='absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 font-semibold text-muted-foreground'>
-          <Link href='/'>Home</Link>
-          <Link href='/'>Dashboard</Link>
-          <Link href='/'>Blog</Link>
-        </nav>
+          <nav className='absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 font-semibold text-muted-foreground'>
+            <Link
+              href='/'
+              className='transition-colors duration-150 hover:text-primary'
+            >
+              Home
+            </Link>
+            <Link
+              href='/'
+              className='transition-colors duration-150 hover:text-primary'
+            >
+              Dashboard
+            </Link>
+            <Link
+              href='/'
+              className='transition-colors duration-150 hover:text-primary'
+            >
+              Blog
+            </Link>
+          </nav>
 
-        <ToggleTheme />
-      </div>
-    </header>
+          <ToggleTheme />
+        </div>
+      </header>
+
+      <div className='h-32 w-full' />
+    </>
   );
 };
