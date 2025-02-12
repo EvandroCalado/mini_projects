@@ -1,16 +1,32 @@
+import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 
-import { getProductsAction } from '@/actions/get-products.action';
-import { ProductCard } from '@/components/products';
+import type { SearchParams } from 'nuqs/server';
 
-const HomePage = async () => {
-  const products = await getProductsAction();
+import { getProductsAction } from '@/actions/get-products.action';
+import { ProductCard, ProductsFilter } from '@/components/products';
+import { loadSearchParams } from './search-params';
+
+type HomePageProps = {
+  searchParams: Promise<SearchParams>;
+};
+
+const HomePage = async ({ searchParams }: HomePageProps) => {
+  const { search, perPage } = await loadSearchParams(searchParams);
+
+  const products = await getProductsAction({ search, perPage });
 
   if (!products) notFound();
 
+  const refetchProducts = async () => {
+    'use server';
+
+    revalidateTag('products');
+  };
+
   return (
     <main className='mx-auto flex max-w-6xl flex-col items-center justify-center gap-10 p-5'>
-      <h1>Products List</h1>
+      <ProductsFilter refetchProducts={refetchProducts} />
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {products.map((product) => (
