@@ -11,20 +11,28 @@ type getProductsActionParams = {
 };
 
 export const getProductsAction = unstable_cache(
-  async (
-    { search, page = 1, perPage = 8 }: getProductsActionParams = {
-      page: 1,
-      perPage: 10,
-    },
-  ): Promise<Product[]> => {
-    const currentOffset = (page - 1) * perPage;
-    const response = await fetch(
-      `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=${perPage}`,
-    );
+  async ({
+    search,
+    page = 1,
+    perPage = 8,
+  }: getProductsActionParams): Promise<Product[]> => {
+    try {
+      const currentOffset = (page - 1) * perPage;
+      const response = await fetch(
+        `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=${perPage}`,
+      );
 
-    const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`Error to fetching products:: ${response.statusText}`);
+      }
 
-    return data;
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      console.error('Error to fetching products:', error);
+      return [];
+    }
   },
   ['products'],
   {
