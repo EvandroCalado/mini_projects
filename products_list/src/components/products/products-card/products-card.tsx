@@ -17,11 +17,11 @@ import {
 import { currencyFormat } from '@/lib';
 import { Product } from '@/types';
 
-type ProductCardProps = {
+type ProductsCardProps = {
   product: Product;
 };
 
-export const ProductCard: FC<ProductCardProps> = ({ product }) => {
+export const ProductsCard: FC<ProductsCardProps> = ({ product }) => {
   const imageURL = product.images[0].startsWith('http')
     ? product.images[0]
     : 'https://fakeimg.pl/300x300/e0dddd/909090';
@@ -43,7 +43,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
             width={300}
             height={300}
             priority
-            className='w-full transition-all duration-150 hover:scale-105'
+            className='h-[200px] w-full transition-all duration-150 hover:scale-105'
           />
         </CardHeader>
 
@@ -51,7 +51,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
           <CardTitle className='truncate text-lg font-semibold transition-colors duration-150 hover:text-primary'>
             {product.title}
           </CardTitle>
-          <CardDescription className='line-clamp-3 text-muted-foreground'>
+          <CardDescription className='truncate text-muted-foreground'>
             {product.description}
           </CardDescription>
         </CardContent>

@@ -5,7 +5,7 @@ import type { SearchParams } from 'nuqs/server';
 
 import { getProductsAction } from '@/actions/get-products.action';
 import {
-  ProductCard,
+  ProductsCard,
   ProductsFilter,
   ProductsPagination,
 } from '@/components/products';
@@ -38,7 +38,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductsCard key={product.id} product={product} />
         ))}
       </div>
 
