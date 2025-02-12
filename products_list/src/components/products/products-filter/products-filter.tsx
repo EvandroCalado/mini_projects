@@ -2,38 +2,37 @@
 
 import { parseAsInteger, useQueryState } from 'nuqs';
 
-import {
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui';
-
 type ProductsFilterProps = {
   refetchProducts: () => void;
 };
 
+const categoriesList = [
+  {
+    id: 2,
+    name: 'a new name2',
+  },
+  {
+    id: 3,
+    name: 'Furniture',
+  },
+  {
+    id: 4,
+    name: 'Shoes',
+  },
+  {
+    id: 5,
+    name: 'Miscellaneous',
+  },
+];
+
 export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
-  const [search, setSearch] = useQueryState('search', {
-    defaultValue: '',
-  });
-  const [perPage, setPerPage] = useQueryState(
-    'perPage',
-    parseAsInteger.withDefault(8),
+  const [category, setCategory] = useQueryState(
+    'category',
+    parseAsInteger.withDefault(0),
   );
 
-  const handleSearch = (value: string) => {
-    setSearch(value);
-
-    setTimeout(() => {
-      refetchProducts();
-    }, 300);
-  };
-
-  const handlePerPage = (value: number) => {
-    setPerPage(value);
+  const handleCategory = (value: number) => {
+    setCategory(value);
 
     setTimeout(() => {
       refetchProducts();
@@ -41,28 +40,28 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
   };
 
   return (
-    <div className='flex w-full items-center justify-between gap-2'>
-      <Input
-        type='text'
-        placeholder='Search'
-        className='max-w-xs'
-        value={search}
-        onChange={(e) => handleSearch(e.target.value)}
-      />
+    <div className='h-max w-60 space-y-2 rounded-lg border p-5'>
+      <h2 className='mb-4 font-semibold'>Categories</h2>
 
-      <Select
-        value={perPage.toString()}
-        onValueChange={(value) => handlePerPage(Number(value))}
-      >
-        <SelectTrigger className='w-[180px]'>
-          <SelectValue placeholder='Per Page' />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value='8'>8</SelectItem>
-          <SelectItem value='16'>16</SelectItem>
-          <SelectItem value='24'>24</SelectItem>
-        </SelectContent>
-      </Select>
+      {categoriesList.map((item) => (
+        <div key={item.name} className='flex items-center gap-2'>
+          <input
+            id={item.name}
+            type='checkbox'
+            name='category'
+            checked={category === item.id}
+            value={item.id}
+            onChange={(e) => handleCategory(Number(e.target.value))}
+            className='accent-primary'
+          />
+          <label
+            htmlFor={item.name}
+            className='text-sm font-semibold capitalize'
+          >
+            {item.name}
+          </label>
+        </div>
+      ))}
     </div>
   );
 };

@@ -23,7 +23,7 @@ export const ProductsSearchBar = ({
   });
   const [perPage, setPerPage] = useQueryState(
     'perPage',
-    parseAsInteger.withDefault(8),
+    parseAsInteger.withDefault(6),
   );
 
   const handleSearch = (value: string) => {
@@ -60,9 +60,9 @@ export const ProductsSearchBar = ({
           <SelectValue placeholder='Per Page' />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value='8'>8</SelectItem>
-          <SelectItem value='16'>16</SelectItem>
-          <SelectItem value='24'>24</SelectItem>
+          <SelectItem value='6'>6</SelectItem>
+          <SelectItem value='12'>12</SelectItem>
+          <SelectItem value='18'>18</SelectItem>
         </SelectContent>
       </Select>
     </div>

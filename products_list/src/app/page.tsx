@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation';
 
 import type { SearchParams } from 'nuqs/server';
 
-import { getProductsAction } from '@/actions/get-products.action';
+import { getProductsAction } from '@/actions';
 import {
   ProductsCard,
+  ProductsFilter,
   ProductsPagination,
   ProductsSearchBar,
 } from '@/components/products';
@@ -16,12 +17,14 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const { search, page, perPage } = await loadSearchParams(searchParams);
+  const { search, page, perPage, category } =
+    await loadSearchParams(searchParams);
 
   const products = await getProductsAction({
     search,
     page,
     perPage,
+    category,
   });
 
   if (!products) notFound();
@@ -36,10 +39,14 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
     <main className='mx-auto flex max-w-6xl flex-col items-center justify-center gap-10 px-5'>
       <ProductsSearchBar refetchProducts={refetchProducts} />
 
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-        {products.map((product) => (
-          <ProductsCard key={product.id} product={product} />
-        ))}
+      <div className='flex gap-4'>
+        <ProductsFilter refetchProducts={refetchProducts} />
+
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+          {products.map((product) => (
+            <ProductsCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
 
       <ProductsPagination refetchProducts={refetchProducts} />
