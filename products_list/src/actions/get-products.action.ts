@@ -8,7 +8,7 @@ type getProductsActionParams = {
   search?: string;
   page?: number;
   perPage?: number;
-  category?: number | null;
+  category?: number;
 };
 
 export const getProductsAction = unstable_cache(
