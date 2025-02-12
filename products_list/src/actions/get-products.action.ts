@@ -6,16 +6,21 @@ import { Product } from '@/types/product.type';
 
 type getProductsActionParams = {
   search?: string;
+  page?: number;
   perPage?: number;
 };
 
 export const getProductsAction = unstable_cache(
-  async ({ search, perPage }: getProductsActionParams): Promise<Product[]> => {
+  async (
+    { search, page = 1, perPage = 8 }: getProductsActionParams = {
+      page: 1,
+      perPage: 10,
+    },
+  ): Promise<Product[]> => {
+    const currentOffset = (page - 1) * perPage;
     const response = await fetch(
-      `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=0&limit=${perPage}`,
+      `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=${perPage}`,
     );
-
-    console.log(perPage);
 
     const data = await response.json();
 

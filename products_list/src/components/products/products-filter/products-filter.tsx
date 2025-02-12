@@ -21,17 +21,23 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
   });
   const [perPage, setPerPage] = useQueryState(
     'perPage',
-    parseAsInteger.withDefault(10),
+    parseAsInteger.withDefault(8),
   );
 
   const handleSearch = (value: string) => {
     setSearch(value);
-    refetchProducts();
+
+    setTimeout(() => {
+      refetchProducts();
+    }, 300);
   };
 
   const handlePerPage = (value: number) => {
     setPerPage(value);
-    refetchProducts();
+
+    setTimeout(() => {
+      refetchProducts();
+    }, 300);
   };
 
   return (
@@ -52,9 +58,9 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
           <SelectValue placeholder='Per Page' />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value='10'>10</SelectItem>
-          <SelectItem value='20'>20</SelectItem>
-          <SelectItem value='30'>30</SelectItem>
+          <SelectItem value='8'>8</SelectItem>
+          <SelectItem value='16'>16</SelectItem>
+          <SelectItem value='24'>24</SelectItem>
         </SelectContent>
       </Select>
     </div>

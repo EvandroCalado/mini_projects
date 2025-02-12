@@ -4,7 +4,11 @@ import { notFound } from 'next/navigation';
 import type { SearchParams } from 'nuqs/server';
 
 import { getProductsAction } from '@/actions/get-products.action';
-import { ProductCard, ProductsFilter } from '@/components/products';
+import {
+  ProductCard,
+  ProductsFilter,
+  ProductsPagination,
+} from '@/components/products';
 import { loadSearchParams } from './search-params';
 
 type HomePageProps = {
@@ -12,9 +16,13 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const { search, perPage } = await loadSearchParams(searchParams);
+  const { search, page, perPage } = await loadSearchParams(searchParams);
 
-  const products = await getProductsAction({ search, perPage });
+  const products = await getProductsAction({
+    search,
+    page,
+    perPage,
+  });
 
   if (!products) notFound();
 
@@ -33,6 +41,8 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
+      <ProductsPagination refetchProducts={refetchProducts} />
     </main>
   );
 };
