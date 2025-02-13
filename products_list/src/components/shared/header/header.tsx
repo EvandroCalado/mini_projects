@@ -25,7 +25,7 @@ export const Header = () => {
   const pathname = usePathname();
 
   return (
-    <>
+    <div className='h-[128px] w-full'>
       <header className='fixed left-0 right-0 z-20 p-5'>
         <div className='relative mx-auto flex max-w-7xl items-center justify-between rounded-xl border border-primary/30 bg-muted/50 p-5 backdrop-blur-md'>
           <Logo />
@@ -46,7 +46,7 @@ export const Header = () => {
         </div>
       </header>
 
-      <div className='h-32 w-full' />
-    </>
+      <div className='h-[128px] w-full' />
+    </div>
   );
 };
