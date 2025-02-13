@@ -14,7 +14,7 @@ type ProductsFilterProps = {
 const categoriesList = [
   {
     id: 2,
-    name: 'a new name2',
+    name: 'grocery',
   },
   {
     id: 3,

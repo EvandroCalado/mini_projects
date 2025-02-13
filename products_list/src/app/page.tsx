@@ -30,7 +30,9 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 
   if (!products) notFound();
 
-  const totalPages = Math.ceil(products.length / perPage);
+  // const totalPages = Math.round(products.length / perPage);
+
+  // console.log(totalPages);
 
   const refetchProducts = async () => {
     'use server';
@@ -54,10 +56,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
         </div>
       </div>
 
-      <ProductsPagination
-        totalPages={totalPages}
-        refetchProducts={refetchProducts}
-      />
+      <ProductsPagination refetchProducts={refetchProducts} />
     </main>
   );
 };

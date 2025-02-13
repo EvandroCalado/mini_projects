@@ -11,12 +11,10 @@ import {
 } from '@/components/ui';
 
 type ProductsPaginationProps = {
-  totalPages: number;
   refetchProducts: () => void;
 };
 
 export const ProductsPagination = ({
-  totalPages,
   refetchProducts,
 }: ProductsPaginationProps) => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -28,8 +26,6 @@ export const ProductsPagination = ({
       refetchProducts();
     }, 300);
   };
-
-  if (totalPages <= 1) return null;
 
   return (
     <Pagination className='mt-auto py-5'>
@@ -43,7 +39,7 @@ export const ProductsPagination = ({
           </Button>
         </PaginationItem>
 
-        {Array.from({ length: totalPages }, (_, index) => (
+        {Array.from({ length: 2 }, (_, index) => (
           <PaginationItem key={index}>
             <Button
               variant='outline'
@@ -56,10 +52,7 @@ export const ProductsPagination = ({
         ))}
 
         <PaginationItem className='ml-2'>
-          <Button
-            onClick={() => handlePagination(page + 1)}
-            disabled={totalPages === page}
-          >
+          <Button onClick={() => handlePagination(page + 1)}>
             <ChevronRight />
           </Button>
         </PaginationItem>
