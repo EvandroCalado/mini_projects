@@ -1,6 +1,11 @@
 'use client';
 
+import Link from 'next/link';
+
+import { X } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
+
+import { Badge } from '@/components/ui';
 
 type ProductsFilterProps = {
   refetchProducts: () => void;
@@ -62,6 +67,21 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
           </label>
         </div>
       ))}
+
+      {category > 0 && (
+        <div className='pt-4'>
+          <h4 className='mb-2 text-sm font-semibold'>Applied Filters:</h4>
+
+          <Link href='/'>
+            <Badge className='cursor-pointer'>
+              {categoriesList
+                .filter((item) => item.id === category)[0]
+                .name.toString()}
+              <X size={12} />
+            </Badge>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
