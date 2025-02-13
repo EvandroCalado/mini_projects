@@ -7,16 +7,16 @@ import {
   Button,
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
 } from '@/components/ui';
 
 type ProductsPaginationProps = {
+  totalPages: number;
   refetchProducts: () => void;
 };
 
 export const ProductsPagination = ({
+  totalPages,
   refetchProducts,
 }: ProductsPaginationProps) => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -32,7 +32,7 @@ export const ProductsPagination = ({
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem>
+        <PaginationItem className='mr-2'>
           <Button
             onClick={() => handlePagination(page - 1)}
             disabled={page <= 1}
@@ -41,16 +41,23 @@ export const ProductsPagination = ({
           </Button>
         </PaginationItem>
 
-        <PaginationItem>
-          <PaginationLink href='#'>1</PaginationLink>
-        </PaginationItem>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <PaginationItem key={index}>
+            <Button
+              variant='outline'
+              onClick={() => handlePagination(index + 1)}
+              className={`${page === index + 1 ? 'bg-muted' : ''}`}
+            >
+              {index + 1}
+            </Button>
+          </PaginationItem>
+        ))}
 
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-
-        <PaginationItem>
-          <Button onClick={() => handlePagination(page + 1)}>
+        <PaginationItem className='ml-2'>
+          <Button
+            onClick={() => handlePagination(page + 1)}
+            disabled={totalPages === page}
+          >
             <ChevronRight />
           </Button>
         </PaginationItem>
