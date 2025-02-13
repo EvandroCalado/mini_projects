@@ -100,7 +100,7 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
             className='w-full cursor-pointer accent-primary'
           />
           <div className='flex items-center justify-between'>
-            <span>USD 0</span>
+            <span>{currencyFormat(0)}</span>
             <span>{currencyFormat(price)}</span>
           </div>
         </div>
