@@ -18,12 +18,14 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const { search, page, category } = await loadSearchParams(searchParams);
+  const { search, page, category, price } =
+    await loadSearchParams(searchParams);
 
   const products = await getProductsAction({
     search,
     page,
     category,
+    price,
   });
 
   if (!products) notFound();

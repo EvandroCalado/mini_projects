@@ -8,6 +8,7 @@ type getProductsActionParams = {
   search?: string;
   page?: number;
   category?: number;
+  price?: number;
 };
 
 export const getProductsAction = unstable_cache(
@@ -15,11 +16,12 @@ export const getProductsAction = unstable_cache(
     search,
     page = 1,
     category = 0,
+    price = 0,
   }: getProductsActionParams): Promise<Product[]> => {
     try {
       const currentOffset = (page - 1) * 6;
       const response = await fetch(
-        `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=6&categoryId=${category}`,
+        `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=6&categoryId=${category}&price_min=1&price_max=${price}`,
       );
 
       if (!response.ok) {
