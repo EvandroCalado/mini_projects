@@ -18,21 +18,15 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const { search, page, perPage, category } =
-    await loadSearchParams(searchParams);
+  const { search, page, category } = await loadSearchParams(searchParams);
 
   const products = await getProductsAction({
     search,
     page,
-    perPage,
     category,
   });
 
   if (!products) notFound();
-
-  // const totalPages = Math.round(products.length / perPage);
-
-  // console.log(totalPages);
 
   const refetchProducts = async () => {
     'use server';
