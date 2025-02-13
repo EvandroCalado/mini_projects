@@ -28,7 +28,7 @@ export const ProductsPagination = ({
   };
 
   return (
-    <Pagination className='mt-auto py-5'>
+    <Pagination className='mt-auto py-5 md:col-span-2 lg:col-span-3'>
       <PaginationContent>
         <PaginationItem className='mr-2'>
           <Button

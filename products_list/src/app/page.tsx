@@ -49,10 +49,9 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
           {products.map((product) => (
             <ProductsCard key={product.id} product={product} />
           ))}
+          <ProductsPagination refetchProducts={refetchProducts} />
         </div>
       </div>
-
-      <ProductsPagination refetchProducts={refetchProducts} />
     </main>
   );
 };
