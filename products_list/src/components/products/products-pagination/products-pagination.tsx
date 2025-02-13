@@ -29,6 +29,8 @@ export const ProductsPagination = ({
     }, 300);
   };
 
+  if (totalPages <= 1) return null;
+
   return (
     <Pagination className='mt-auto py-5'>
       <PaginationContent>
