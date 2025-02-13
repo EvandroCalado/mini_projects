@@ -33,8 +33,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            {children}
+            <main className='flex h-screen flex-col'>
+              <Header />
+              {children}
+            </main>
           </ThemeProvider>
         </NuqsAdapter>
       </body>
