@@ -1,7 +1,5 @@
 'use server';
 
-import { unstable_cache } from 'next/cache';
-
 import { Product } from '@/types/product.type';
 
 type getProductsActionParams = {
@@ -11,50 +9,54 @@ type getProductsActionParams = {
   price?: number;
 };
 
-export const getProductsAction = unstable_cache(
-  async ({
-    search,
-    page = 1,
-    category = 0,
-    price = 0,
-  }: getProductsActionParams): Promise<{
-    products: Product[];
-    pageCount: number;
-  }> => {
-    try {
-      const perPage = 6;
+export const getProductsAction = async ({
+  search,
+  page = 1,
+  category = 0,
+  price = 0,
+}: getProductsActionParams): Promise<{
+  products: Product[];
+  pageCount: number;
+}> => {
+  try {
+    const perPage = 6;
+    const currentOffset = (page - 1) * perPage;
 
-      const currentOffset = (page - 1) * perPage;
-      const response = await fetch(
+    const [response, pageCountResponse] = await Promise.all([
+      fetch(
         `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=${currentOffset}&limit=${perPage}&categoryId=${category}&price_min=1&price_max=${price}`,
-      );
-      const pageCountResponse = await fetch(
+        {
+          next: { tags: ['products'] },
+        },
+      ),
+      fetch(
         `https://api.escuelajs.co/api/v1/products/?title=${search}&offset=0&limit=1000&categoryId=${category}&price_min=1&price_max=${price}`,
-      );
+        {
+          next: { tags: ['products'] },
+        },
+      ),
+    ]);
 
-      if (!response.ok) {
-        throw new Error(`Error to fetching products:: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      const pageCountData = await pageCountResponse.json();
-
-      const pageCount = Math.ceil(pageCountData.length / perPage);
-
-      return {
-        products: data,
-        pageCount,
-      };
-    } catch (error) {
-      console.error('Error to fetching products:', error);
-      return {
-        products: [],
-        pageCount: 0,
-      };
+    if (!response.ok) {
+      throw new Error(`Error to fetching products: ${response.statusText}`);
     }
-  },
-  ['products'],
-  {
-    tags: ['products'],
-  },
-);
+
+    const [products, pageCountData] = await Promise.all([
+      response.json(),
+      pageCountResponse.json(),
+    ]);
+
+    const pageCount = Math.ceil(pageCountData.length / perPage);
+
+    return {
+      products,
+      pageCount,
+    };
+  } catch (error) {
+    console.error('Error to fetching products:', error);
+    return {
+      products: [],
+      pageCount: 0,
+    };
+  }
+};
