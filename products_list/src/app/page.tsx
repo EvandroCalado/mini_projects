@@ -5,9 +5,8 @@ import type { SearchParams } from 'nuqs/server';
 
 import { getProductsAction } from '@/actions';
 import {
-  ProductsCard,
-  ProductsEmpty,
   ProductsFilter,
+  ProductsGrid,
   ProductsPagination,
   ProductsSearchBar,
 } from '@/components/products';
@@ -42,21 +41,13 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 
       <div className='flex flex-col gap-4 md:flex-row'>
         <ProductsFilter refetchProducts={refetchProducts} />
-
-        <div className='flex h-full w-full flex-col items-center justify-center'>
-          <div className='grid w-full shrink grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-            {products.length < 1 && <ProductsEmpty />}
-
-            {products.map((product) => (
-              <ProductsCard key={product.id} product={product} />
-            ))}
-          </div>
-          <ProductsPagination
-            pageCount={pageCount}
-            refetchProducts={refetchProducts}
-          />
-        </div>
+        <ProductsGrid products={products} />
       </div>
+
+      <ProductsPagination
+        pageCount={pageCount}
+        refetchProducts={refetchProducts}
+      />
     </main>
   );
 };
