@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { X } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
 
-import { Badge } from '@/components/ui';
+import { Badge, Checkbox, Slider } from '@/components/ui';
 import { currencyFormat } from '@/lib';
 
 type ProductsFilterProps = {
@@ -69,14 +69,14 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
 
         {categoriesList.map((item) => (
           <div key={item.name} className='flex items-center gap-2'>
-            <input
+            <Checkbox
               id={item.name}
-              type='checkbox'
               name='category'
               checked={category === item.id}
               value={item.id}
-              onChange={(e) => handleCategory(Number(e.target.value))}
-              className='accent-primary'
+              onCheckedChange={(checked) =>
+                handleCategory(checked ? Number(item.id) : 0)
+              }
             />
             <label
               htmlFor={item.name}
@@ -93,15 +93,12 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
         <h2 className='mb-4 font-semibold'>Price</h2>
 
         <div>
-          <input
-            type='range'
-            name='price'
-            id='price'
+          <Slider
             max={1000}
             step={1}
-            value={price}
-            onChange={(e) => handlePrice(Number(e.target.value))}
-            className='w-full cursor-pointer accent-primary'
+            value={[price]}
+            onValueChange={(value) => handlePrice(value[0])}
+            className='mb-4 w-full'
           />
           <div className='flex items-center justify-between'>
             <span>{currencyFormat(0)}</span>
