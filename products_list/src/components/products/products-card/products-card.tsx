@@ -2,8 +2,6 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ShoppingCart } from 'lucide-react';
-
 import {
   Badge,
   Button,
@@ -29,7 +27,7 @@ export const ProductsCard: FC<ProductsCardProps> = ({ product }) => {
   return (
     <Card
       key={product.id}
-      className='relative w-full max-w-80 overflow-hidden p-0'
+      className='relative w-full max-w-80 overflow-hidden rounded-lg p-0'
     >
       <Badge className='absolute left-2 top-2 z-10'>
         {product.category.name}
@@ -46,25 +44,23 @@ export const ProductsCard: FC<ProductsCardProps> = ({ product }) => {
             className='h-[200px] w-full transition-all duration-150 hover:scale-105'
           />
         </CardHeader>
+      </Link>
 
-        <CardContent className='p-2'>
+      <CardContent className='p-2'>
+        <Link href='/'>
           <CardTitle className='truncate text-lg font-semibold transition-colors duration-150 hover:text-primary'>
             {product.title}
           </CardTitle>
-          <CardDescription className='truncate text-muted-foreground'>
-            {product.description}
-          </CardDescription>
-        </CardContent>
+        </Link>
+        <CardDescription className='truncate text-muted-foreground'>
+          {product.description}
+        </CardDescription>
+      </CardContent>
 
-        <CardFooter className='flex items-center justify-between p-2'>
-          <p className='text-lg font-semibold'>
-            {currencyFormat(product.price)}
-          </p>
-          <Button>
-            <ShoppingCart /> Add to cart
-          </Button>
-        </CardFooter>
-      </Link>
+      <CardFooter className='flex items-center justify-between p-2'>
+        <p className='text-lg font-semibold'>{currencyFormat(product.price)}</p>
+        <Button>Add to cart</Button>
+      </CardFooter>
     </Card>
   );
 };
