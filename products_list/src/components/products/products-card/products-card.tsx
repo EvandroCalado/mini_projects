@@ -27,7 +27,7 @@ export const ProductsCard: FC<ProductsCardProps> = ({ product }) => {
   return (
     <Card
       key={product.id}
-      className='relative w-full max-w-80 overflow-hidden rounded-lg p-0'
+      className='relative w-full overflow-hidden rounded-lg p-0'
     >
       <Badge className='absolute left-2 top-2 z-10'>
         {product.category.name}
@@ -41,7 +41,7 @@ export const ProductsCard: FC<ProductsCardProps> = ({ product }) => {
             width={300}
             height={300}
             priority
-            className='h-[200px] w-full transition-all duration-150 hover:scale-105'
+            className='h-[200px] w-full object-cover transition-all duration-150 hover:scale-105'
           />
         </CardHeader>
       </Link>

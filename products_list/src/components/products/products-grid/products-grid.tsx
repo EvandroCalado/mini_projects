@@ -8,7 +8,7 @@ type ProductsGridProps = {
 
 export const ProductsGrid = ({ products }: ProductsGridProps) => {
   return (
-    <div className='grid h-max w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+    <div className='grid h-max w-full grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3 xl:gap-16'>
       {products.length < 1 && <ProductsEmpty />}
 
       {products.map((product) => (
