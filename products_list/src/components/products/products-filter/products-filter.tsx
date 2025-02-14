@@ -100,7 +100,7 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
             onValueChange={(value) => handlePrice(value[0])}
             className='mb-4 w-full'
           />
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between text-sm'>
             <span>{currencyFormat(0)}</span>
             <span>{currencyFormat(price)}</span>
           </div>
