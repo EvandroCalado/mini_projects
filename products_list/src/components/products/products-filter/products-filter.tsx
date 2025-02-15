@@ -62,7 +62,7 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
   };
 
   return (
-    <div className='h-max min-w-72 space-y-8 rounded-lg border p-5'>
+    <div className='h-max min-w-60 space-y-8 rounded-lg border p-5'>
       {/* categories */}
       <div className='space-y-2'>
         <h2 className='mb-4 font-semibold'>Categories</h2>
@@ -107,6 +107,7 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
         </div>
       </div>
 
+      {/* applied filters */}
       {category > 0 && (
         <div className='pt-4'>
           <h4 className='mb-2 text-sm font-semibold'>Applied Filters:</h4>

@@ -37,7 +37,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
   };
 
   return (
-    <main className='container mx-auto flex h-full w-full flex-col gap-10 px-5'>
+    <main className='mx-auto flex h-full w-full max-w-6xl flex-col gap-10 px-5'>
       <ProductsSearchBar refetchProducts={refetchProducts} />
 
       <div className='flex flex-col gap-4 md:flex-row'>
