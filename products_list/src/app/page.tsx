@@ -17,12 +17,13 @@ type HomePageProps = {
 };
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
-  const { search, page, category, price } =
+  const { search, page, perPage, category, price } =
     await loadSearchParams(searchParams);
 
   const { products, pageCount } = await getProductsAction({
     search,
     page,
+    perPage,
     category,
     price,
   });

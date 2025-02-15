@@ -5,6 +5,7 @@ import { Product } from '@/types/product.type';
 type getProductsActionParams = {
   search?: string;
   page?: number;
+  perPage?: number;
   category?: number;
   price?: number;
 };
@@ -12,6 +13,7 @@ type getProductsActionParams = {
 export const getProductsAction = async ({
   search,
   page = 1,
+  perPage = 6,
   category = 0,
   price = 0,
 }: getProductsActionParams): Promise<{
@@ -19,7 +21,6 @@ export const getProductsAction = async ({
   pageCount: number;
 }> => {
   try {
-    const perPage = 6;
     const currentOffset = (page - 1) * perPage;
 
     const [response, pageCountResponse] = await Promise.all([
