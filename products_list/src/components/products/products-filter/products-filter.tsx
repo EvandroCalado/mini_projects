@@ -15,23 +15,23 @@ type ProductsFilterProps = {
 const categoriesList = [
   {
     id: 1,
-    name: 'Clothes',
+    name: 'clothes',
   },
   {
     id: 2,
-    name: 'grocery',
+    name: 'electronics',
   },
   {
     id: 3,
-    name: 'Furniture',
+    name: 'furniture',
   },
   {
     id: 4,
-    name: 'Shoes',
+    name: 'shoes',
   },
   {
     id: 5,
-    name: 'Miscellaneous',
+    name: 'miscellaneous',
   },
 ];
 

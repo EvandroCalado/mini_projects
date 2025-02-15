@@ -34,13 +34,10 @@ export const ProductsPagination = ({
 
   const renderPageNumbers = () => {
     const pages = [];
-    for (let i = 1; i <= pageCount; i++) {
-      if (
-        i === page ||
-        i === page + 1 ||
-        i === pageCount - 1 ||
-        i === pageCount
-      ) {
+    const maxVisiblePages = 5;
+
+    if (pageCount <= maxVisiblePages) {
+      for (let i = 1; i <= pageCount; i++) {
         pages.push(
           <PaginationItem key={i}>
             <Button
@@ -52,14 +49,66 @@ export const ProductsPagination = ({
             </Button>
           </PaginationItem>,
         );
-      } else if (i === page + 2 && pageCount > 5) {
+      }
+    } else {
+      pages.push(
+        <PaginationItem key={1}>
+          <Button
+            variant='outline'
+            onClick={() => handlePagination(1)}
+            className={`${page === 1 ? 'bg-muted' : ''}`}
+          >
+            {1}
+          </Button>
+        </PaginationItem>,
+      );
+
+      if (page > 3) {
         pages.push(
           <PaginationItem key='ellipsis-start'>
             <PaginationEllipsis />
           </PaginationItem>,
         );
       }
+
+      const start = Math.max(2, page - 1);
+      const end = Math.min(pageCount - 1, page + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(
+          <PaginationItem key={i}>
+            <Button
+              variant='outline'
+              onClick={() => handlePagination(i)}
+              className={`${page === i ? 'bg-muted' : ''}`}
+            >
+              {i}
+            </Button>
+          </PaginationItem>,
+        );
+      }
+
+      if (page < pageCount - 2) {
+        pages.push(
+          <PaginationItem key='ellipsis-end'>
+            <PaginationEllipsis />
+          </PaginationItem>,
+        );
+      }
+
+      pages.push(
+        <PaginationItem key={pageCount}>
+          <Button
+            variant='outline'
+            onClick={() => handlePagination(pageCount)}
+            className={`${page === pageCount ? 'bg-muted' : ''}`}
+          >
+            {pageCount}
+          </Button>
+        </PaginationItem>,
+      );
     }
+
     return pages;
   };
 
