@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-
 import { X } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
 
@@ -45,12 +43,12 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
     parseAsInteger.withDefault(0),
   );
 
-  const handleCategory = (value: number) => {
+  const handleCategory = (value: number | null) => {
     setCategory(value);
 
     setTimeout(() => {
       refetchProducts();
-    }, 300);
+    });
   };
 
   const handlePrice = (value: number) => {
@@ -58,7 +56,7 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
 
     setTimeout(() => {
       refetchProducts();
-    }, 300);
+    });
   };
 
   return (
@@ -112,14 +110,15 @@ export const ProductsFilter = ({ refetchProducts }: ProductsFilterProps) => {
         <div className='pt-4'>
           <h4 className='mb-2 text-sm font-semibold'>Applied Filters:</h4>
 
-          <Link href='/'>
-            <Badge className='cursor-pointer'>
-              {categoriesList
-                .filter((item) => item.id === category)[0]
-                .name.toString()}
-              <X size={12} />
-            </Badge>
-          </Link>
+          <Badge
+            className='cursor-pointer'
+            onClick={() => handleCategory(null)}
+          >
+            {categoriesList
+              .filter((item) => item.id === category)[0]
+              .name.toString()}
+            <X size={12} />
+          </Badge>
         </div>
       )}
     </div>
